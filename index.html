@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./null.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="filters">
+        <div class="product__select">
+          <span class="select">Все категории</span>
+          <svg
+            class="change"
+            xmlns="http://www.w3.org/2000/svg"
+            width="50"
+            height="50"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path d="M7.5 9L12 14L16.5 9H7.5Z" fill="#70869A" />
+          </svg>
+          <div class="select__menu hidden">
+            <div class="select__item">Все категории</div>
+            <div class="select__item">iPad</div>
+            <div class="select__item">iPhone</div>
+            <div class="select__item">Mac</div>
+          </div>
+        </div>
+        <div class="product__price">
+          <input class="minprice" type="number" value="0" min="0" />
+          <span class="dash"></span>
+          <input
+            class="maxprice"
+            type="number"
+            value="999999"
+            max="999999"
+            min="10000"
+          />
+          <button class="btn__price">Применить</button>
+        </div>
+        <div class="product__select product__sort">
+          <span class="select sort">По умолчанию</span>
+          <svg
+            class="change"
+            xmlns="http://www.w3.org/2000/svg"
+            width="50"
+            height="50"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path d="M7.5 9L12 14L16.5 9H7.5Z" fill="#70869A" />
+          </svg>
+          <div class="select__menu sort__menu hidden">
+            <!-- desc - от большего к меньшему, asc от меньшего к большему -->
+            <div class="select__item sort__item" data-key="id" data-order="asc">
+              По умолчанию
+            </div>
+
+            <div
+              class="select__item sort__item"
+              data-key="rate"
+              data-order="desc"
+            >
+              По рейтингу
+            </div>
+
+            <div
+              class="select__item sort__item"
+              data-key="price"
+              data-order="desc"
+            >
+              По цене: от большей к меньшей
+            </div>
+            <div
+              class="select__item sort__item"
+              data-key="price"
+              data-order="asc"
+            >
+              По цене: от меньшей к большей
+            </div>
+            <div
+              class="select__item sort__item"
+              data-key="name"
+              data-order="desc"
+            >
+              По алфавиту: а-я
+            </div>
+            <div
+              class="select__item sort__item"
+              data-key="name"
+              data-order="asc"
+            >
+              По алфавиту: я-а
+            </div>
+          </div>
+        </div>
+        <div class="product__search">
+          <input class="search" type="text" placeholder="Найти" />
+        </div>
+        <div class="product__cart">
+          <img class="cart__img" src="./card.svg" alt="" />
+        </div>
+      </div>
+      <div class="products"></div>
+    </div>
+    <div class="popup hidden">
+      <div class="popup__container">
+        <button class="popup__close">x</button>
+        <h2 class="popup__title">Информация о товаре</h2>
+        <div class="popup__body">
+          <img src="" alt="" class="popup__img" />
+          <div class="popup__info">
+            <div>
+              <h3 class="popup__name"></h3>
+              <p class="popup__text"></p>
+            </div>
+            <div class="product__bottom">
+              <div class="product__price">
+                <span class="price popup__price">27270</span>₽
+              </div>
+              <button class="product__btn popup__btn">
+                Добавить в корзину
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal hidden">
+      <div class="modal__container">
+        <h2 class="modal__title">Корзина</h2>
+        <div class="modal__body"></div>
+        <div class="modal__bottom">
+          <div>Сумма заказа: <span class="modal__sum">0</span>₽</div>
+          <div class="modal__row">
+            <button class="modal__clear">Очистить корзину</button>
+            <button class="modal__add">Оформить заказ</button>
+          </div>
+        </div>
+        <button class="modal__close">x</button>
+      </div>
+    </div>
+
+    <template class="temp">
+      <div class="product">
+        <div class="product__top">
+          <div class="product__rait">
+            <svg
+              class="star"
+              width="16"
+              height="15"
+              viewBox="0 0 16 15"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.04894 0.92705C7.3483 0.00573921 8.6517 0.00573969 8.95106 0.92705L10.0206 4.21885C10.1545 4.63087 10.5385 4.90983 10.9717 4.90983H14.4329C15.4016 4.90983 15.8044 6.14945 15.0207 6.71885L12.2205 8.75329C11.87 9.00793 11.7234 9.4593 11.8572 9.87132L12.9268 13.1631C13.2261 14.0844 12.1717 14.8506 11.388 14.2812L8.58778 12.2467C8.2373 11.9921 7.7627 11.9921 7.41221 12.2467L4.61204 14.2812C3.82833 14.8506 2.77385 14.0844 3.0732 13.1631L4.14277 9.87132C4.27665 9.4593 4.12999 9.00793 3.7795 8.75329L0.979333 6.71885C0.195619 6.14945 0.598395 4.90983 1.56712 4.90983H5.02832C5.46154 4.90983 5.8455 4.63087 5.97937 4.21885L7.04894 0.92705Z"
+              ></path>
+            </svg>
+            <svg
+              class="star"
+              width="16"
+              height="15"
+              viewBox="0 0 16 15"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.04894 0.92705C7.3483 0.00573921 8.6517 0.00573969 8.95106 0.92705L10.0206 4.21885C10.1545 4.63087 10.5385 4.90983 10.9717 4.90983H14.4329C15.4016 4.90983 15.8044 6.14945 15.0207 6.71885L12.2205 8.75329C11.87 9.00793 11.7234 9.4593 11.8572 9.87132L12.9268 13.1631C13.2261 14.0844 12.1717 14.8506 11.388 14.2812L8.58778 12.2467C8.2373 11.9921 7.7627 11.9921 7.41221 12.2467L4.61204 14.2812C3.82833 14.8506 2.77385 14.0844 3.0732 13.1631L4.14277 9.87132C4.27665 9.4593 4.12999 9.00793 3.7795 8.75329L0.979333 6.71885C0.195619 6.14945 0.598395 4.90983 1.56712 4.90983H5.02832C5.46154 4.90983 5.8455 4.63087 5.97937 4.21885L7.04894 0.92705Z"
+              ></path>
+            </svg>
+            <svg
+              class="star"
+              width="16"
+              height="15"
+              viewBox="0 0 16 15"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.04894 0.92705C7.3483 0.00573921 8.6517 0.00573969 8.95106 0.92705L10.0206 4.21885C10.1545 4.63087 10.5385 4.90983 10.9717 4.90983H14.4329C15.4016 4.90983 15.8044 6.14945 15.0207 6.71885L12.2205 8.75329C11.87 9.00793 11.7234 9.4593 11.8572 9.87132L12.9268 13.1631C13.2261 14.0844 12.1717 14.8506 11.388 14.2812L8.58778 12.2467C8.2373 11.9921 7.7627 11.9921 7.41221 12.2467L4.61204 14.2812C3.82833 14.8506 2.77385 14.0844 3.0732 13.1631L4.14277 9.87132C4.27665 9.4593 4.12999 9.00793 3.7795 8.75329L0.979333 6.71885C0.195619 6.14945 0.598395 4.90983 1.56712 4.90983H5.02832C5.46154 4.90983 5.8455 4.63087 5.97937 4.21885L7.04894 0.92705Z"
+              ></path>
+            </svg>
+            <svg
+              class="star"
+              width="16"
+              height="15"
+              viewBox="0 0 16 15"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.04894 0.92705C7.3483 0.00573921 8.6517 0.00573969 8.95106 0.92705L10.0206 4.21885C10.1545 4.63087 10.5385 4.90983 10.9717 4.90983H14.4329C15.4016 4.90983 15.8044 6.14945 15.0207 6.71885L12.2205 8.75329C11.87 9.00793 11.7234 9.4593 11.8572 9.87132L12.9268 13.1631C13.2261 14.0844 12.1717 14.8506 11.388 14.2812L8.58778 12.2467C8.2373 11.9921 7.7627 11.9921 7.41221 12.2467L4.61204 14.2812C3.82833 14.8506 2.77385 14.0844 3.0732 13.1631L4.14277 9.87132C4.27665 9.4593 4.12999 9.00793 3.7795 8.75329L0.979333 6.71885C0.195619 6.14945 0.598395 4.90983 1.56712 4.90983H5.02832C5.46154 4.90983 5.8455 4.63087 5.97937 4.21885L7.04894 0.92705Z"
+              ></path>
+            </svg>
+            <svg
+              class="star"
+              width="16"
+              height="15"
+              viewBox="0 0 16 15"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.04894 0.92705C7.3483 0.00573921 8.6517 0.00573969 8.95106 0.92705L10.0206 4.21885C10.1545 4.63087 10.5385 4.90983 10.9717 4.90983H14.4329C15.4016 4.90983 15.8044 6.14945 15.0207 6.71885L12.2205 8.75329C11.87 9.00793 11.7234 9.4593 11.8572 9.87132L12.9268 13.1631C13.2261 14.0844 12.1717 14.8506 11.388 14.2812L8.58778 12.2467C8.2373 11.9921 7.7627 11.9921 7.41221 12.2467L4.61204 14.2812C3.82833 14.8506 2.77385 14.0844 3.0732 13.1631L4.14277 9.87132C4.27665 9.4593 4.12999 9.00793 3.7795 8.75329L0.979333 6.71885C0.195619 6.14945 0.598395 4.90983 1.56712 4.90983H5.02832C5.46154 4.90983 5.8455 4.63087 5.97937 4.21885L7.04894 0.92705Z"
+              ></path>
+            </svg>
+          </div>
+          <div class="product__img">
+            <img
+              class="img"
+              src="https://appleshops.ru/image/cache/catalog/Apple/Apple%20iPad%2010.2%202021/iPad_10_2_Grey-500x500.jpg_500.webp"
+              alt=""
+            />
+          </div>
+          <h3 class="product__name">
+            10.2" Планшет Apple iPad 10.2 2021, 64 ГБ, Wi-Fi, серый космос
+          </h3>
+        </div>
+        <div class="product__bottom">
+          <div class="product__price"><span class="price">27270</span>₽</div>
+          <button class="product__btn">Добавить в корзину</button>
+        </div>
+      </div>
+    </template>
+    <template class="cart__temp">
+      <div class="modal__item">
+        <div class="modal__left">
+          <img
+            class="modal__img"
+            src="https://appleshops.ru/image/cache/catalog/Apple/Apple%20iPad%2010.9%202022/iPad-10_9-2022-white-500x500.jpg_500.webp"
+            alt=""
+          />
+          <h3 class="modal__name">
+            8.3" Планшет Apple iPad mini 2021, 64 ГБ, Wi-Fi, сияющая звезда
+          </h3>
+        </div>
+        <div class="modal__right">
+          <div><span class="modal__price">41200</span>₽</div>
+          <div>
+            <button class="modal__del">x</button>
+          </div>
+        </div>
+      </div>
+    </template>
+    <script src="./data.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
