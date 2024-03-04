@@ -1,6 +1,6 @@
 # online-shop - Интернет-магазин с фильтрацией, сортировкой, поиском и корзиной
 
-# demo https://app.netlify.com/sites/goods-store23/overview
+# demo https://goods-store23.netlify.app/
 
 # технологии:
 
